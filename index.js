@@ -15,34 +15,48 @@ io.on('connection', function(socket){
     console.log('--------------------------------------------------------------');
 
     // Handle generate event
-    socket.on('generate', function(){
+    socket.on('generate', function(sequence){
         var text = "";
         var possible = "abcd";
 
         for (var i = 0; i < 18; i++) {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
         }
-
-        console.log('Generated new sequence: ', text);
+        if (sequence.length > 0){
+            text = sequence;
+        }
+        console.log('Generated/passed new sequence: ', text);
         io.sockets.emit('generate', text);
     });
 
     socket.on('shoe', function(player, finished) {
-        console.log('!!! player = ' + player);
-        console.log('!!! finished = ' + finished);
+        console.log('Emit: shoe');
         io.sockets.emit('shoe', player, finished);
     });
 
     socket.on('fail', function(loser) {
+        console.log('Emit: fail');
         io.sockets.emit('fail', loser)
     });
 
-    socket.on('startnew', function() {
-        io.sockets.emit('startnew', {})
+    socket.on('nextRound', function() {
+        console.log('Emit: nextRound');
+        io.sockets.emit('nextRound', {})
     });
 
-    socket.on('startfail', function() {
-        io.sockets.emit('startfail', {})
+    socket.on('startAgain', function() {
+        console.log('Emit: startAgain');
+        io.sockets.emit('startAgain', {});
+    });
+
+    socket.on('yourTurn', function(player) {
+        console.log('Emit: yourTurn');
+        io.sockets.emit('yourTurn', player);
+    });
+
+    socket.on('addition', function(letter) {
+        console.log('Emit: addition. Letter: ' + letter);
+        io.sockets.emit('addition', letter);
     });
 
 });
