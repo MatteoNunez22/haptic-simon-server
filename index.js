@@ -12,20 +12,19 @@ var io = socket(server);
 
 io.on('connection', function(socket){
     console.log('Made socket connection with: ', socket.id);
-    console.log('--------------------------------------------------------------');
+    console.log('----------------------------------------');
 
     // Handle generate event
-    socket.on('generate', function(sequence){
+    socket.on('generate', function(){
         var text = "";
-        var possible = "abcd";
+        var possible = "abcd";  // Change letters
 
         for (var i = 0; i < 18; i++) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
+            text += possible.charAt(Math.floor(Math.random()
+                * possible.length));
         }
-        if (sequence.length > 0){
-            text = sequence;
-        }
-        console.log('Generated/passed new sequence: ', text);
+
+        console.log('Generated new sequence: ', text);
         io.sockets.emit('generate', text);
     });
 
