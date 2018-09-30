@@ -1,9 +1,19 @@
+/* Server application to run multiplayer modes of Haptic Simon
+ *
+ *  Required: Install node.js
+ *            Initialize 'npm' to get the 'node_modules' folder
+ *            Install 'express.io' and 'socket.io' with npm
+ *
+ *  Follow this 5-part tutorial (if needed)
+ *  https://www.youtube.com/watch?v=vQjiN8Qgs3c&list=PL4cUxeGkcC9i4V-_ZVwLmOusj8YAUhj_9
+ */
+
 var express = require('express');
 var socket = require('socket.io');
 
 // App setup
 var app = express();
-var server = app.listen(4000, function(){ //Port number: 4000
+var server = app.listen(4000, function(){ // Choose any port number: 4000
     console.log('Listening to requests on port 4000 ...')
 });
 
